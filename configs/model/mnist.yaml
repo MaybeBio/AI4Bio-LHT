@@ -1,0 +1,48 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/model/mnist.yaml
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/model/mnist.yaml
+# add criterion, metrics
+
+_target_: src.models.mnist_module.MNISTLitModule
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 0.001
+  weight_decay: 0.0
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  _partial_: true
+  mode: min
+  factor: 0.1
+  patience: 10
+
+# ⚠️ MODIFY [net, criterion, metrics] BELOW TO MATCH YOUR PROJECT!
+
+net:
+  _target_: src.models.components.simple_dense_net.SimpleDenseNet
+  input_size: 784
+  lin1_size: 64
+  lin2_size: 128
+  lin3_size: 64
+  output_size: 10
+
+# add refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/model/mnist.yaml
+criterion:
+  _target_: torch.nn.CrossEntropyLoss
+
+# add refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/model/mnist.yaml
+metrics:
+  _target_: torchmetrics.MetricCollection
+  # since MetricCollection does not recognize OmegaConf containers as their corresponding Python primitives
+  # force the conversion of OmegaConf containers to Python primitives
+  _convert_: all
+  metrics:
+    acc:
+      _target_: torchmetrics.Accuracy
+      task: multiclass
+      num_classes: 10
+
+
+# compile model for faster training with pytorch 2.0
+compile: false

@@ -1,0 +1,29 @@
+# original refer to https://github.com/ashleve/lightning-hydra-template/blob/main/pyproject.toml
+# ⚠️ We do not do `PACKAGE THINGS` here, instead we do it in setup.py
+# for more complicated configurations, refer to https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/pyproject.toml
+
+[tool.pytest.ini_options]
+addopts = [
+  "--color=yes",
+  "--durations=0",
+  "--strict-markers",
+  "--doctest-modules",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::UserWarning",
+]
+log_cli = "True"
+markers = [
+  "slow: slow tests",
+]
+minversion = "6.0"
+testpaths = "tests/"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: nocover",
+    "raise NotImplementedError",
+    "raise NotImplementedError()",
+    "if __name__ == .__main__.:",
+]

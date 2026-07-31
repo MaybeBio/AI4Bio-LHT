@@ -1,0 +1,26 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/callbacks/default.yaml
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/callbacks/default.yaml
+# modify model_checkpoint/early_stopping: monitor+mode, patience 
+
+defaults:
+  - model_checkpoint
+  - early_stopping
+  - model_summary
+  - rich_progress_bar
+  - _self_
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  filename: "epoch_{epoch:03d}"
+  monitor: "val/loss"
+  mode: "min"
+  save_last: True
+  auto_insert_metric_name: False
+
+early_stopping:
+  monitor: "val/loss"
+  patience: 10
+  mode: "min"
+
+model_summary:
+  max_depth: -1

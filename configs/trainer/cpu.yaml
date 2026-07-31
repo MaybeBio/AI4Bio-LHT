@@ -1,0 +1,7 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/trainer/cpu.yaml
+
+defaults:
+  - default
+
+accelerator: cpu
+devices: 1

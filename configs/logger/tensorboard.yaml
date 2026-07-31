@@ -1,0 +1,11 @@
+# https://www.tensorflow.org/tensorboard/
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/logger/tensorboard.yaml
+
+tensorboard:
+  _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger
+  save_dir: "${paths.output_dir}/tensorboard/"
+  name: null
+  log_graph: False
+  default_hp_metric: True
+  prefix: ""
+  # version: ""

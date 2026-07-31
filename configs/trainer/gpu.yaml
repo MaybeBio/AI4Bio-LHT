@@ -1,0 +1,7 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/trainer/gpu.yaml
+
+defaults:
+  - default
+
+accelerator: gpu
+devices: 1

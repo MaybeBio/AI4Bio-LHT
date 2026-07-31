@@ -1,0 +1,10 @@
+# train with many loggers at once
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/logger/many_loggers.yaml
+
+defaults:
+  # - comet
+  - csv
+  # - mlflow
+  # - neptune
+  - tensorboard
+  - wandb

@@ -1,0 +1,37 @@
+# @package _global_
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/eval.yaml
+
+# modify refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/eval.yaml
+# modify:
+# - defaults.trainer: default -> gpu
+# - defaults.paths: default -> env
+# - add target_dir、pred_dir
+
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/eval.yaml
+# add defaults.optional local: default
+
+# ⚠️ MODIFY [defaults.data, defaults.model] TO MATCH YOUR PROJECT!
+
+defaults:
+  - _self_
+  - data: mnist # choose datamodule with `test_dataloader()` for evaluation
+  - model: mnist
+  - logger: null
+  - trainer: gpu
+  - paths: env
+  - extras: default
+  - hydra: default
+  # optional local config for machine/user specific settings
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: default
+
+task_name: "eval"
+
+tags: ["dev"]
+
+# passing checkpoint path is necessary for evaluation
+ckpt_path: ???
+
+# ⚠️ add refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/eval.yaml
+target_dir: ${oc.env:REFERENCE_DATA}
+pred_dir: null

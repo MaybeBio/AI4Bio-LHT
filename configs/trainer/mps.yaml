@@ -1,0 +1,7 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/trainer/mps.yaml
+
+defaults:
+  - default
+
+accelerator: mps
+devices: 1
