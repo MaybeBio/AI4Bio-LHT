@@ -1,10 +1,13 @@
 # @package _global_
 # original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/configs/train.yaml
+
 # modify refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/train.yaml
 # modify: 
 # - defaults.logger: null -> csv
 # - defaults.paths: default -> env
 
+# modify refer to: https://github.com/gorodnitskiy/yet-another-lightning-hydra-template/blob/main/configs/train.yaml
+# modify seed:null -> 42 in case you forget
 
 # ⚠️ MODIFY [defaults.data, defaults.model] TO MATCH YOUR PROJECT! 
 
@@ -54,7 +57,9 @@ test: True
 ckpt_path: null
 
 # seed for random number generators in pytorch, numpy and python.random
-seed: null
+# seed: null
+# modify refer to: https://github.com/gorodnitskiy/yet-another-lightning-hydra-template/blob/main/configs/train.yaml
+seed: 42
 
 # ⚠️ YOU MAY ADD `compile` item here instead of configs/model/mnist.yaml
 # choose 1 of 2 places to set compile: configs/model/mnist.yaml(compile: false) or configs/train.yaml(here)
