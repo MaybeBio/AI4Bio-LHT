@@ -1,3 +1,5 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/src/models/components/simple_dense_net.py
+
 import torch
 from torch import nn
 

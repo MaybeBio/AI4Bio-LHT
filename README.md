@@ -1,6 +1,6 @@
 <div align="center">
 
-# Lightning-Hydra-Template
+# AI4Bio-LHT Template
 
 [![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
@@ -489,23 +489,6 @@ ValueError: Specify tags before launching a multirun!
 > **Note**: Appending lists from command line is currently not supported in hydra :(
 
 </details>
-
-<br>
-
-## ❤️  Contributions
-
-This project exists thanks to all the people who contribute.
-
-![Contributors](https://readme-contributors.now.sh/ashleve/lightning-hydra-template?extension=jpg&width=400&aspectRatio=1)
-
-Have a question? Found a bug? Missing a specific feature? Feel free to file a new issue, discussion or PR with respective title and description.
-
-Before making an issue, please verify that:
-
-- The problem still exists on the current `main` branch.
-- Your python dependencies are updated to recent versions.
-
-Suggestions for improvements are always welcome!
 
 <br>
 
