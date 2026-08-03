@@ -64,3 +64,7 @@ seed: 42
 # ⚠️ YOU MAY ADD `compile` item here instead of configs/model/mnist.yaml
 # choose 1 of 2 places to set compile: configs/model/mnist.yaml(compile: false) or configs/train.yaml(here)
 # if here, refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/train.yaml
+
+# ⚠️ YOU MAY ADD `_assert_` item here 
+# put assertions to check the validity of the config, using the `raise` custom Hydra resolver
+# refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/e3054d80ba3cdba968f84f38c62e09b8b4887cca/src/lightning_hydra_template/configs/train.yaml

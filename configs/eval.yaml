@@ -10,6 +10,10 @@
 # modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/eval.yaml
 # add defaults.optional local: default
 
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/e3054d80ba3cdba968f84f38c62e09b8b4887cca/src/lightning_hydra_template/configs/eval.yaml
+# add predict: True
+# ⚠️ you may need to add some variables to store the prediction results, such as pred_dir, target_dir, etc.
+
 # ⚠️ MODIFY [defaults.data, defaults.model] TO MATCH YOUR PROJECT!
 
 defaults:
@@ -32,6 +36,15 @@ tags: ["dev"]
 # passing checkpoint path is necessary for evaluation
 ckpt_path: ???
 
+# ⚠️ add refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/e3054d80ba3cdba968f84f38c62e09b8b4887cca/src/lightning_hydra_template/configs/eval.yaml
+# predict on test set
+# used in src/eval.py, if cfg.get("predict") branch
+predict: True
+
 # ⚠️ add refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/eval.yaml
 target_dir: ${oc.env:REFERENCE_DATA}
 pred_dir: null
+
+# ⚠️ YOU MAY ADD `_assert_` item here 
+# put assertions to check the validity of the config, using the `raise` custom Hydra resolver
+# refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/e3054d80ba3cdba968f84f38c62e09b8b4887cca/src/lightning_hydra_template/configs/eval.yaml
