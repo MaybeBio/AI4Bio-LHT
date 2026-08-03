@@ -1,4 +1,11 @@
-from typing import Any, Dict, List, Optional, Tuple
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/src/train.py
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/train.py
+# modify all type hints to higher python version (small case, built-in)
+
+# ⚠️ You may need to deal with `compile` & `predict` logic here
+# if you refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/train.py
+
+from typing import Any
 
 import hydra
 import lightning as L
@@ -40,7 +47,7 @@ log = RankedLogger(__name__, rank_zero_only=True)
 
 
 @task_wrapper
-def train(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+def train(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     """Trains the model. Can additionally evaluate on a testset, using best weights obtained during
     training.
 
@@ -61,10 +68,10 @@ def train(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     model: LightningModule = hydra.utils.instantiate(cfg.model)
 
     log.info("Instantiating callbacks...")
-    callbacks: List[Callback] = instantiate_callbacks(cfg.get("callbacks"))
+    callbacks: list[Callback] = instantiate_callbacks(cfg.get("callbacks"))
 
     log.info("Instantiating loggers...")
-    logger: List[Logger] = instantiate_loggers(cfg.get("logger"))
+    logger: list[Logger] = instantiate_loggers(cfg.get("logger"))
 
     log.info(f"Instantiating trainer <{cfg.trainer._target_}>")
     trainer: Trainer = hydra.utils.instantiate(cfg.trainer, callbacks=callbacks, logger=logger)
@@ -81,10 +88,15 @@ def train(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
     if logger:
         log.info("Logging hyperparameters!")
         log_hyperparameters(object_dict)
+        
+    # ⚠️ You may need to use src/utils/checkpoint_utils.py here
+    # model, ckpt_path = checkpoint_utils.load_model_checkpoint(model, cfg.get("ckpt_path"))
+    # if you refer to: https://github.com/lujiarui/Str2Str/blob/main/src/train.py#L86
 
     if cfg.get("train"):
         log.info("Starting training!")
-        trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"))
+        # ⚠️ remember to add `weights_only=False` for pytorch2.6+ version, but not needed for pytorch2.5 and below
+        trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"), weights_only=False)
 
     train_metrics = trainer.callback_metrics
 
@@ -94,7 +106,8 @@ def train(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         if ckpt_path == "":
             log.warning("Best ckpt not found! Using current weights for testing...")
             ckpt_path = None
-        trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+        # ⚠️ remember to add `weights_only=False` for pytorch2.6+ version, but not needed for pytorch2.5 and below
+        trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path, weights_only=False)
         log.info(f"Best ckpt path: {ckpt_path}")
 
     test_metrics = trainer.callback_metrics
@@ -106,7 +119,7 @@ def train(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
 
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
-def main(cfg: DictConfig) -> Optional[float]:
+def main(cfg: DictConfig) -> float | None:
     """Main entry point for training.
 
     :param cfg: DictConfig configuration composed by Hydra.
