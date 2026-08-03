@@ -74,3 +74,8 @@ A `LightningDataModule` implements 7 key methods:
         https://lightning.ai/docs/pytorch/latest/data/datamodule.html
 
 ```
+
+# 4. Collect `Dataset and DataModule` scripts to enrich the src/data folder (🌟)
+
+- src/data/protein_datamodule.py: refer to https://github.com/lujiarui/Str2Str/blob/main/src/data/protein_datamodule.py  
+- 

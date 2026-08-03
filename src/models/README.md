@@ -246,3 +246,5 @@ oneprot/src/models
     Docs:
         https://lightning.ai/docs/pytorch/latest/common/lightning_module.html
 ```
+
+# 3. Collect `Net class and LightningModule` scripts to enrich the src/models folder (🌟)

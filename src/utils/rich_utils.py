@@ -1,5 +1,9 @@
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/src/utils/rich_utils.py
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/utils/rich_utils.py
+# modify all type hints to higher python version 
+
 from pathlib import Path
-from typing import Sequence
+from collections.abc import Sequence
 
 import rich
 import rich.syntax
