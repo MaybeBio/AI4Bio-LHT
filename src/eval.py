@@ -1,4 +1,12 @@
-from typing import Any, Dict, List, Tuple
+# original refer to: https://github.com/ashleve/lightning-hydra-template/blob/main/src/eval.py
+
+# modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/eval.py
+# modify all type hints to higher python version (small case, built-in)
+# add `predict` logic in evaluate function
+
+# ⚠️ You may need to add `callback` logic in evaluate function if you refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/eval.py
+
+from typing import Any
 
 import hydra
 import rootutils
@@ -36,7 +44,7 @@ log = RankedLogger(__name__, rank_zero_only=True)
 
 
 @task_wrapper
-def evaluate(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+def evaluate(cfg: DictConfig) -> tuple[dict[str, Any], dict[str, Any]]:
     """Evaluates given checkpoint on a datamodule testset.
 
     This method is wrapped in optional @task_wrapper decorator, that controls the behavior during
@@ -52,9 +60,13 @@ def evaluate(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
 
     log.info(f"Instantiating model <{cfg.model._target_}>")
     model: LightningModule = hydra.utils.instantiate(cfg.model)
+    
+    # ⚠️ You may need to add `callback` logic in evaluate function if you refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/eval.py
+    # log.info("Instantiating callbacks...")
+    # callbacks: list[Callback] = instantiate_callbacks(cfg.get("callbacks"))
 
     log.info("Instantiating loggers...")
-    logger: List[Logger] = instantiate_loggers(cfg.get("logger"))
+    logger: list[Logger] = instantiate_loggers(cfg.get("logger"))
 
     log.info(f"Instantiating trainer <{cfg.trainer._target_}>")
     trainer: Trainer = hydra.utils.instantiate(cfg.trainer, logger=logger)
@@ -72,12 +84,22 @@ def evaluate(cfg: DictConfig) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         log_hyperparameters(object_dict)
 
     log.info("Starting testing!")
-    trainer.test(model=model, datamodule=datamodule, ckpt_path=cfg.ckpt_path)
+    # ⚠️ remember to add `weights_only=False` for pytorch2.6+ version, but not needed for pytorch2.5 and below
+    trainer.test(model=model, datamodule=datamodule, ckpt_path=cfg.ckpt_path, weights_only=False)
+
+    metric_dict = trainer.callback_metrics
 
     # for predictions use trainer.predict(...)
     # predictions = trainer.predict(model=model, dataloaders=dataloaders, ckpt_path=cfg.ckpt_path)
-
-    metric_dict = trainer.callback_metrics
+    # ⚠️ we add `predict` logic here but we do not implement predict_dataloader() in src/data/mnist_datamodule.py
+    # use test_dataloader() instead
+    # and we do not store the prediction results here
+    # just an example of how to use trainer.predict(...) for future reference
+    if cfg.get("predict"):
+        log.info("Starting predicting!")
+        trainer.predict(
+            model=model, dataloaders=datamodule.test_dataloader(), ckpt_path=cfg.ckpt_path, weights_only=False
+        )
 
     return metric_dict, object_dict
 
