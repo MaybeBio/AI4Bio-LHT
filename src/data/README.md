@@ -38,6 +38,7 @@ For example, change to your dataset, you can :
 
 # 3. For DataModule
 
+```
 A `LightningDataModule` implements 7 key methods:
 
     ```python
@@ -72,3 +73,4 @@ A `LightningDataModule` implements 7 key methods:
     Read the docs:
         https://lightning.ai/docs/pytorch/latest/data/datamodule.html
 
+```
