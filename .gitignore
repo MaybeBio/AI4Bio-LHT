@@ -80,7 +80,8 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-notebooks/
+# ⚠️ git your notebook, but ignore it in real project/final version
+# notebooks/
 
 # IPython
 profile_default/
@@ -166,14 +167,16 @@ cython_debug/
 *.pth
 *.npy
 outputs/
-logs/
+
+# ⚠️ git your logs, but ignore it in real project/final version
+# logs/
 *.ckpt
 .cache
 .*/
 slurm*.out
 
 
-# add some items below from: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/.gitignore
+# ⚠️ add some items below from: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/.gitignore
 
 # Data & Models
 *.h5
@@ -183,5 +186,7 @@ slurm*.out
 # Lightning-Hydra-Template
 src/**/configs/local/*
 !src/**/configs/local/example.yaml
-/data/
-/logs/
+
+# ⚠️ git your data & logs, but ignore it in real project/final version if you need
+# /data/
+# /logs/
