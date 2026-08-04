@@ -4,7 +4,7 @@
 # modify refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/train.yaml
 # modify: 
 # - defaults.logger: null -> csv
-# - defaults.paths: default -> env
+# - when cross-machine training, specify paths via CLI `paths:env`
 
 # modify refer to: https://github.com/gorodnitskiy/yet-another-lightning-hydra-template/blob/main/configs/train.yaml
 # modify seed:null -> 42 in case you forget
@@ -20,7 +20,7 @@ defaults:
   - callbacks: default
   - logger: csv # set logger here or use command line (e.g. `python train.py logger=tensorboard`)
   - trainer: default
-  - paths: env
+  - paths: default  # - when cross-machine training, specify paths via CLI `paths:env`
   - extras: default
   - hydra: default
 

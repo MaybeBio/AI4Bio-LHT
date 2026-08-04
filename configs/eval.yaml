@@ -4,7 +4,7 @@
 # modify refer to: https://github.com/lujiarui/Str2Str/blob/main/configs/eval.yaml
 # modify:
 # - defaults.trainer: default -> gpu
-# - defaults.paths: default -> env
+# - when cross-machine training, specify paths via CLI `paths:env`
 # - add target_dir、pred_dir
 
 # modify refer to: https://github.com/nathanpainchaud/lightning-hydra-template/blob/main/src/lightning_hydra_template/configs/eval.yaml
@@ -22,7 +22,7 @@ defaults:
   - model: mnist
   - logger: null
   - trainer: gpu
-  - paths: env
+  - paths: default # - when cross-machine training, specify paths via CLI `paths:env`
   - extras: default
   - hydra: default
   # optional local config for machine/user specific settings
